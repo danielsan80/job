@@ -1,0 +1,15 @@
+{
+    "name": "danilo/job",
+    "license": "proprietary",
+    "type": "project",
+    "autoload": {
+        "psr-0": {
+            "": "src/"
+        }
+    },
+    "require": {
+        "php": ">=5.3.3",
+        "guzzlehttp/guzzle": "*"
+    },
+    "minimum-stability": "stable"
+}

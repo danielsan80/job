@@ -4,11 +4,12 @@ namespace Idrolab\JobeetBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Category
  *
- * @ORM\Table()
+ * @ORM\Table(name="category")
  * @ORM\Entity(repositoryClass="Idrolab\JobeetBundle\Entity\CategoryRepository")
  */
 class Category
@@ -45,7 +46,15 @@ class Category
      */
     private $updatedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Job", mappedBy="category")
+     */
+    protected $jobs;
 
+    public function __construct()
+    {
+        $this->jobs = new ArrayCollection();
+    }
     /**
      * Get id
      *
@@ -131,4 +140,6 @@ class Category
     {
         return $this->updatedAt;
     }
+
+
 }

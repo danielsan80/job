@@ -36,6 +36,7 @@ class Category
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created_at", type="datetime")
      */
+
     private $createdAt;
 
     /**

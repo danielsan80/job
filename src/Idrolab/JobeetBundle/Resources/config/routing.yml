@@ -1,0 +1,3 @@
+idrolab_jobeet_homepage:
+    resource: @IdrolabJobeetBundle/Controller/
+    type:     annotation

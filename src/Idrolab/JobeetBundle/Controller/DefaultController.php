@@ -8,10 +8,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/hello/{name}", name="jobeet_index")
+     * @Route("/", name="home")
      */
-    public function indexAction($name)
+    public function indexAction()
     {
-        return $this->render('IdrolabJobeetBundle:Default:index.html.twig', array('name' => $name));
+        return $this->redirect('job');
     }
 }

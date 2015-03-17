@@ -1,0 +1,45 @@
+Idrolab\JobeetBundle\Entity\Job:
+    properties:
+        category:
+           - NotNull: ~
+           - Type:
+               type: Idrolab\JobeetBundle\Entity\Category
+        type:
+            - Length:
+                max: 255
+        company:
+            - NotBlank: ~
+            - Length:
+                max: 255
+        logo:
+            - Url: ~
+        url:
+            - Url: ~
+        position:
+            - NotBlank: ~
+            - Length:
+                max: 255
+        location:
+            - NotBlank: ~
+            - Length:
+                max: 255
+        description:
+            - NotBlank: ~
+        howToApply:
+            - NotBlank: ~
+        token:
+            - NotBlank: ~
+            - Length:
+                max: 255
+        isPublic:
+            - NotNull: ~
+            - Type:
+                type: boolean
+        isActivated:
+            - NotNull: ~
+            - Type:
+                type: boolean
+        email:
+            - Email: ~
+        expiresAt:
+            - Date: ~

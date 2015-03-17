@@ -154,7 +154,7 @@ class Job
      * @param \stdClass $category
      * @return Job
      */
-    public function setCategory($category)
+    public function setCategory(Category $category=null)
     {
         $this->category = $category;
 

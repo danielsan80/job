@@ -6,17 +6,28 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Job list</h1>
+  <div id="jobs">
+    {% for entity in entities %}
+    <div class="category_{{ entity.name }}">
+      <div class="category">
+        <div class="feed">
+          <a href="">RSS Feed</a>
+        </div>
+        <h1>{{ entity.name }}</h1>
+      </div>
 
-    <div id="jobs">
       <table class="jobs">
-        {% for entity in entities %}
-            <tr class="{{ loop.index is odd ? 'even' : 'odd' }}">
-              <td>{{ entity.location }}</td>
-              <td><a href="{{ url('job_show', {id: entity.id}) }}">{{ entity.position }}</a></td>
-              <td>{{ entity.company }}</td>
-            </tr>
+
+        {% for job in entity.jobs %}
+          <tr class="{{ loop.index is odd ? 'even' : 'odd' }}">
+            <td class="location">{{ job.location }}</td>
+            <td><a href="{{ url('job_show', {id: job.id}) }}">{{ job.position }}</a></td>
+            <td>{{ job.company }}</td>
+          </tr>
         {% endfor %}
-    </table>
-   </div>
+      </table>
+    </div>
+    {% endfor %}
+</div>
+
 {% endblock %}

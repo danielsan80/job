@@ -12,4 +12,29 @@ use Doctrine\ORM\EntityRepository;
  */
 class JobRepository extends EntityRepository
 {
+  public function getActiveJobs()
+  {
+    $now = new \DateTime('-30 days');
+
+    $qb = $this->getAllJobsQuery()
+            ->andWhere('j.createdAt > :date')
+            ->setParameter("date", $now);
+    
+    return $qb->getQuery()->getResult();
+  }
+
+  public function getAllJobs()
+  {
+    $qb = $this->getAllJobsQuery();
+
+    return $qb->getQuery()->getResult();
+  }
+
+  public function getAllJobsQuery()
+  {
+    $qb = $this->createQueryBuilder('j')
+        ->leftJoin('j.category', 'c');
+
+    return ($qb);
+  }
 }

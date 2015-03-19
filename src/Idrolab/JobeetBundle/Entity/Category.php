@@ -147,5 +147,16 @@ class Category
         return $this->updatedAt;
     }
 
+    public function getJobs()
+    {
+      return $this->jobs;
+    }
+
+    public function setJobs($jobs)
+    {
+      $this->jobs = $jobs;
+      return $this;
+
+    }
 
 }

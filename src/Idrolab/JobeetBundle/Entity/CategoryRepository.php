@@ -12,4 +12,18 @@ use Doctrine\ORM\EntityRepository;
  */
 class CategoryRepository extends EntityRepository
 {
+  public function getAllCategories(){
+
+    $qb = $this->createQueryBuilder('c')
+       ->leftJoin('c.jobs', 'j');
+    
+    return $qb->getQuery()->getResult();
+  }
+  public function getAllCategoriesWithJobs(){
+
+    $qb = $this->createQueryBuilder('c')
+       ->Join('c.jobs', 'j');
+
+    return $qb->getQuery()->getResult();
+  }
 }

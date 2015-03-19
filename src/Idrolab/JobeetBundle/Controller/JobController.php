@@ -29,7 +29,9 @@ class JobController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('IdrolabJobeetBundle:Job')->findAll();
+        $repo = $em->getRepository('IdrolabJobeetBundle:Category');
+
+        $entities = $repo->getAllCategoriesWithJobs();
 
         return array(
             'entities' => $entities,

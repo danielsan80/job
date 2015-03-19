@@ -1,4 +1,19 @@
 services:
+  jobeet_geocoder:
+    class: Geocoder\Geocoder
+    calls:
+      - [registerProviders, [[@jobeet_geocoder_provider]]]
+  jobeet_geocoder_provider:
+    class: Geocoder\Provider\FreeGeoIpProvider
+    arguments: [@jobeet_geocoder_adapter]
+    public: false
+  jobeet_geocoder_adapter:
+    class: Geocoder\HttpAdapter\CurlHttpAdapter
+    public: false
+  jobeet_created_listener:
+    class: Idrolab\JobeetBundle\Event\Listener\JobCreatedListener
+    tags:
+      - { name: kernel.event_listener, event: jobeet.job_created, method: notifyInterestedUsers }
 #    idrolab_jobeet.example:
 #        class: Idrolab\JobeetBundle\Example
 #        arguments: [@service_id, "plain_value", %parameter%]

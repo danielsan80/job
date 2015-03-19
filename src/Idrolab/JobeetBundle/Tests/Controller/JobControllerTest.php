@@ -7,11 +7,25 @@ class JobControllerTest extends WebTestCase
 {
     public function testIndex()
     {
-      $client = static::createClient();
-      $crawler = $client->request('GET', '/job');
+      $executor = $this->loadFixtures(array(
+      'Idrolab\JobeetBundle\DataFixtures\ORM\LoadCategoryData',
+      'Idrolab\JobeetBundle\DataFixtures\ORM\LoadJobData',
+      ));
 
-      var_dump(count($crawler->filter('//h1')));
-      $this->assertTrue($crawler->filter('html')->count() == 1);
+      $client = static::createClient();
+      $client->followRedirects(true);
+
+      $crawler = $client->request('GET', '/');
+      $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+      $this->assertCount(1,$crawler->filter('div#jobs'));
+      $this->assertCount(1, $crawler->filter('div.category:contains("Programming")'));
+
+      $crawler = $client->click($crawler->selectLink('Web Developer')->link());
+
+      $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+      $this->assertCount(1,$crawler->filter('p.how_to_apply'));
     }
     /*
     public function testCompleteScenario()

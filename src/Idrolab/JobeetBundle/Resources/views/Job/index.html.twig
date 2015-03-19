@@ -6,6 +6,8 @@
 {% endblock %}
 
 {% block content %}
+  {{ ip }}<br>
+  {{ result.latitude}}, {{ result.longitude}}
   <div id="jobs">
     {% for entity in entities %}
     <div class="category_{{ entity.name }}">

@@ -7,7 +7,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
+//use Geocoder\HttpAdapter\CurlHttpAdapter;
+//use Geocoder\Geocoder;
+//use Geocoder\Provider\FreeGeoIpProvider;
+
 use Idrolab\JobeetBundle\Entity\Job;
+use Idrolab\JobeetBundle\Event\JobEvent;
 use Idrolab\JobeetBundle\Form\JobType;
 
 /**
@@ -27,15 +33,29 @@ class JobController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+//      $adapter = new CurlHttpAdapter();
+//      $geocoder = new Geocoder();
+//      $geocoder->registerProviders(array(new FreeGeoIpProvider($adapter)));
 
-        $repo = $em->getRepository('IdrolabJobeetBundle:Category');
+      $geocoder = $this->get('jobeet_geocoder');
 
-        $entities = $repo->getAllCategoriesWithJobs();
+      $ip = $this->getRequest()->getClientIp();
+      if ($ip == '127.0.0.1') {
+       $ip = '114.247.144.250';
+      }
+      $result =$geocoder->geocode($ip);
 
-        return array(
-            'entities' => $entities,
-        );
+      $em = $this->getDoctrine()->getManager();
+
+      $repo = $em->getRepository('IdrolabJobeetBundle:Category');
+
+      $entities = $repo->getAllCategoriesWithJobs();
+
+      return array(
+          'entities' => $entities,
+          'ip' => $ip,
+          'result' => $result,
+      );
     }
     /**
      * Creates a new Job entity.
@@ -53,9 +73,12 @@ class JobController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
+            $this->get('event_dispatcher')->dispatch('jobeet.job_created',
+                    new JobEvent($entity)
+            );
             $em->flush();
 
-            return $this->redirect($this->generateUrl('job_show', array('id' => $entity->getId())));
+//            return $this->redirect($this->generateUrl('job_show', array('id' => $entity->getId())));
         }
 
         return array(

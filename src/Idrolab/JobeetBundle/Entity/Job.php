@@ -156,10 +156,19 @@ class Job
      */
     public function setCategory(Category $category=null)
     {
-        $this->category = $category;
 
-        return $this;
+      if (!$category && $this->category){
+        $this->category->removeJob($this);
+      }
+      if ($category && $this->category != $category){
+        $category->addJob($this);
+      }
+
+      $this->category = $category;
+
+      return $this;
     }
+
 
     /**
      * Get category

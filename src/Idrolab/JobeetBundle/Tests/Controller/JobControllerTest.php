@@ -2,10 +2,17 @@
 
 namespace Idrolab\JobeetBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-
+use Liip\FunctionalTestBundle\Test\WebTestCase;
 class JobControllerTest extends WebTestCase
 {
+    public function testIndex()
+    {
+      $client = static::createClient();
+      $crawler = $client->request('GET', '/job');
+
+      var_dump(count($crawler->filter('//h1')));
+      $this->assertTrue($crawler->filter('html')->count() == 1);
+    }
     /*
     public function testCompleteScenario()
     {

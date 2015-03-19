@@ -6,6 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class CategoryControllerTest extends WebTestCase
 {
+
+  public function testDummy()
+    {
+        $this->assertTrue(true);
+    }
     /*
     public function testCompleteScenario()
     {

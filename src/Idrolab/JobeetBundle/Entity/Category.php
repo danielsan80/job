@@ -155,8 +155,28 @@ class Category
     public function setJobs($jobs)
     {
       $this->jobs = $jobs;
+
       return $this;
 
     }
 
+    public function addJob($job)
+    {
+      if (!($this->jobs->contains($job))){
+        $this->jobs[] = $job;
+        $job->setCategory($this);
+      }
+      return $this;
+    }
+
+    public function removeJob($job)
+    {
+
+      if ($this->jobs->contains($job))
+      {
+        $this->jobs->removeElement($job);
+        $job->setCategory(null);
+      }
+
+    }
 }

@@ -12,6 +12,8 @@ services:
     public: false
   jobeet_created_listener:
     class: Idrolab\JobeetBundle\Event\Listener\JobCreatedListener
+    calls:
+      - [setLogger, [@logger]]
     tags:
       - { name: kernel.event_listener, event: jobeet.job_created, method: notifyInterestedUsers }
 #    idrolab_jobeet.example:

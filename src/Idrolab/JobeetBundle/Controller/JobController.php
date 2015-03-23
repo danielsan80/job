@@ -78,7 +78,7 @@ class JobController extends Controller
             );
             $em->flush();
 
-//            return $this->redirect($this->generateUrl('job_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('job_show', array('id' => $entity->getId())));
         }
 
         return array(

@@ -12,6 +12,6 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->redirect('job');
+        return $this->redirect($this->generateUrl('job'));
     }
 }

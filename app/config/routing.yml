@@ -3,5 +3,5 @@ idrolab_jobeet:
     prefix:   /
 
 app_bundle:
-  resource: @AppBundle/Resources/config/routing.yml
-  prefix: /
+    resource: "@AppBundle/Resources/config/routing.yml"
+    prefix:   /
